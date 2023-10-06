@@ -1,0 +1,98 @@
+using System;
+
+public enum FactionType
+{
+    GoodGuy,
+    BadGuy
+}
+
+public class Faction
+{
+    public static readonly Faction GoodGuy = new Faction(FactionType.GoodGuy, "Good Guy");
+    public static readonly Faction BadGuy = new Faction(FactionType.BadGuy, "Bad Guy");
+
+    public FactionType Type { get; private set; }
+    public string Name { get; private set; }
+
+    private Faction(FactionType type, string name)
+    {
+        Type = type;
+        Name = name;
+    }
+}
+
+public class Weapon
+{
+    public int Damage { get; private set; }
+
+    public static readonly int GOOD_GUY_DAMAGE = 10;
+    public static readonly int BAD_GUY_DAMAGE = 15;
+
+    public Weapon(Faction faction)
+    {
+        Damage = faction == Faction.GoodGuy ? GOOD_GUY_DAMAGE : BAD_GUY_DAMAGE;
+    }
+}
+
+public class Armor
+{
+    public int ArmorPoints { get; private set; }
+
+    public static readonly int GOOD_GUY_ARMOR = 10;
+    public static readonly int BAD_GUY_ARMOR = 8;
+
+    public Armor(Faction faction)
+    {
+        ArmorPoints = faction == Faction.GoodGuy ? GOOD_GUY_ARMOR : BAD_GUY_ARMOR;
+    }
+}
+
+public class Warrior
+{
+    public Faction Faction { get; private set; }
+    public int Health { get; private set; }
+    public string Name { get; private set; }
+    public bool IsAlive { get; private set; }
+    public Weapon Weapon { get; private set; }
+    public Armor Armor { get; private set; }
+
+    public static readonly int GOOD_GUY_STARTING_HEALTH = 100;
+    public static readonly int BAD_GUY_STARTING_HEALTH = 100;
+
+    public Warrior(Faction faction, string name)
+    {
+        Faction = faction;
+        Name = name;
+        Health = faction == Faction.GoodGuy ? GOOD_GUY_STARTING_HEALTH : BAD_GUY_STARTING_HEALTH;
+        IsAlive = true;
+        Weapon = new Weapon(faction);
+        Armor = new Armor(faction);
+    }
+
+    public void Attack(Warrior enemy)
+    {
+        if (IsAlive && enemy.IsAlive && this != enemy)
+        {
+            int damageDealt = Weapon.Damage - enemy.Armor.ArmorPoints;
+            if (damageDealt > 0)
+            {
+                enemy.Health -= damageDealt;
+                if (enemy.Health <= 0)
+                {
+                    enemy.IsAlive = false;
+                    Console.WriteLine($"{Name} defeated {enemy.Name}!");
+                }
+                else
+                {
+                    Console.WriteLine($"{Name} attacked {enemy.Name} for {damageDealt} damage. {enemy.Name} has {enemy.Health} health remaining.");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"{Name}'s attack was blocked by {enemy.Name}'s armor.");
+            }
+        }
+    }
+}
+
+
