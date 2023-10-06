@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp2_Jogo_.Classes
+{
+    
+    
+        public class Weapon
+        {
+            public int Damage { get; private set; }
+            public static int GOOD_GUY_DAMAGE { get; private set; }
+            public static int BAD_GUY_DAMAGE { get; private set; }
+
+            static Weapon()
+            {
+                GOOD_GUY_DAMAGE = 20; // Define o dano padrão para guerreiros bons
+                BAD_GUY_DAMAGE = 15;  // Define o dano padrão para guerreiros maus
+            }
+
+            public Weapon(int damage)
+            {
+                Damage = damage;
+            }
+        }
+
+    }
+
