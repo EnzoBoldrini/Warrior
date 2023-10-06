@@ -1,0 +1,35 @@
+class Program
+{
+    static void Main()
+    {
+        Faction goodGuyFaction = Faction.GoodGuy;
+        Faction badGuyFaction = Faction.BadGuy;
+
+        Warrior warrior1 = new Warrior(goodGuyFaction, "Leo");
+        Warrior warrior2 = new Warrior(badGuyFaction, "Felipe");
+
+        while (warrior1.IsAlive && warrior2.IsAlive)
+        {
+            warrior1.Attack(warrior2);
+            if (!warrior2.IsAlive)
+                break;
+
+            warrior2.Attack(warrior1);
+            if (!warrior1.IsAlive)
+                break;
+        }
+
+        if (warrior1.IsAlive)
+        {
+            Console.WriteLine($"{warrior1.Name} is the last warrior standing!");
+        }
+        else if (warrior2.IsAlive)
+        {
+            Console.WriteLine($"{warrior2.Name} is the last warrior standing!");
+        }
+        else
+        {
+            Console.WriteLine("It's a draw! Both warriors have been defeated.");
+        }
+    }
+}
