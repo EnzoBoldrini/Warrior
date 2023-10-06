@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp2_Jogo_.Classes
+{
+    
+    
+        public class Armor
+        {
+            public int ArmorPoints { get; private set; }
+            public static int GOOD_GUY_ARMOR { get; private set; }
+            public static int BAD_GUY_ARMOR { get; private set; }
+
+            static Armor()
+            {
+                GOOD_GUY_ARMOR = 15; // Define a proteção padrão para guerreiros bons
+                BAD_GUY_ARMOR = 10;  // Define a proteção padrão para guerreiros maus
+            }
+
+            public Armor(int armorPoints)
+            {
+                ArmorPoints = armorPoints;
+            }
+        }
+
+}
+
